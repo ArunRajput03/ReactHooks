@@ -1,9 +1,10 @@
 import React from "react"
 import { ACTIONTYPE } from "./Tasks2"
+import { APP } from "./util/common"
 
 export default function TaskToDo({ todo, dispatch }) {
   function taskDelete() {
-    dispatch({ type: ACTIONTYPE.DELETE_TODO, id: todo.id })
+    dispatch({ type: APP.ACTIONTYPE.DELETE_TODO, id: todo.id })
   }
   return (
     <div style={{ color: todo.isCompleted ? "#000" : "#AAA", margin: "10px" }}>
@@ -17,12 +18,16 @@ export default function TaskToDo({ todo, dispatch }) {
         Completed: <strong>{todo.isCompleted ? "Yes" : "No"}</strong>
       </span>
       <button
-        onClick={() => dispatch({ type: ACTIONTYPE.TOGGLE_TODO, id: todo.id })}
+        onClick={() =>
+          dispatch({ type: APP.ACTIONTYPE.TOGGLE_TODO, id: todo.id })
+        }
       >
         Toggle
       </button>
       <button
-        onClick={() => dispatch({ type: ACTIONTYPE.DELETE_TODO, id: todo.id })}
+        onClick={() =>
+          dispatch({ type: APP.ACTIONTYPE.DELETE_TODO, id: todo.id })
+        }
       >
         Delete
       </button>
