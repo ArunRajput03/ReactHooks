@@ -1,12 +1,9 @@
-import { useState, useReducer } from "react"
+// Use Browser Local Storage
+
+import { useState, useReducer, useEffect } from "react"
 import TaskToDo from "./TaskToDo"
 import { APP } from "./util/common"
-
-// export const ACTIONTYPE = {
-//   TODO: "TODO",
-//   TOGGLE_TODO: "TOGGLE_TODO",
-//   DELETE_TODO: "DELETE_TODO",
-// }
+import { LocalStorage } from "./LocalStorage"
 
 function reducer(tasks, action) {
   switch (action.type) {
@@ -34,9 +31,12 @@ function newTaskTodo(tsk) {
   }
 }
 
-function Tasks2() {
+function TasksFromLocalStorage() {
   const [data, setData] = useState({ task: "" })
-  const [tasks, dispatch] = useReducer(reducer, [])
+  const storedTasks = LocalStorage.getTasksInLocalStorage(
+    APP.TASK_LOCAL_STORAGE_KEY
+  )
+  const [tasks, dispatch] = useReducer(reducer, storedTasks.tasks)
   // const [tasks, dispatch] => return value is going to be two portions
   //                            1) Task     => The first protion is going to be state in this case [] array object
   //                            2) dispatch => call to update our state, it's going to call this reducer function with certain parameters
@@ -48,6 +48,11 @@ function Tasks2() {
   //        2) action => Going to take an action, this action we are going to pass with DISPATCH function
   // [] => Initial value in object {} / []
 
+  useEffect(() => {
+    LocalStorage.setTasksInLocalStorage(APP.TASK_LOCAL_STORAGE_KEY, {
+      tasks: tasks,
+    })
+  })
   //console.log(data)
   function handleFormSubmit(e) {
     e.preventDefault()
@@ -60,7 +65,10 @@ function Tasks2() {
 
   return (
     <div>
-      <h2>Reducer Pattern - Tasks With Child Compnent</h2>
+      <h2>
+        Reducer Pattern - Tasks With Child Compnent (Store State In
+        LocalStorage)
+      </h2>
       <form onSubmit={handleFormSubmit}>
         <input
           type="text"
@@ -79,4 +87,4 @@ function Tasks2() {
   )
 }
 
-export default Tasks2
+export default TasksFromLocalStorage

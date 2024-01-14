@@ -11,11 +11,15 @@ GitHub Pull Requests and Issues
 
 # Reducer
 
+App Create => npx create-react-app reducer
+
 Steps:
 
-1. create app
-   npx create-react-app reducer
-
-2) Run: npm start
+1. Run: npm start
    Output
    ![Alt text](image.png)
+
+2. Use Local Storage
+   ![Alt text](image-1.png)
+   In another browser
+   ![Alt text](image-2.png)
